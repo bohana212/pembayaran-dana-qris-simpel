@@ -161,6 +161,19 @@ footer a:hover {
   text-decoration: underline;
 }
 
+select, textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
   </style>
 </head>
 <body>
@@ -189,13 +202,13 @@ footer a:hover {
     </a>
   </div>  <div id="report-section" class="section">
     <h2>Lapor Bug / Error</h2>
-    <select>
-      <option value="bug">Bug di tampilan</option>
-      <option value="error">Gagal saat bayar</option>
-      <option value="lainnya">Lainnya</option>
+    <select id="bugType">
+      <option value="Masalah Tampilan Web">Masalah Tampilan Web</option>
+      <option value="QR / Pembayaran Gagal">QR / Pembayaran Gagal</option>
+      <option value="Lainnya">Lainnya / Tidak Tahu</option>
     </select>
-    <textarea placeholder="Tulis pesan atau keluhan..."></textarea>
-    <button class="submit" onclick="window.open('https://wa.me/6287860828740?text=Assalamualaikum%20saya%20mau%20melaporkan%20masalah%20di%20website%20Hann%20Store','_blank')">Kirim ke WhatsApp</button>
+    <textarea id="bugMessage" placeholder="Jelaskan masalahmu dengan sopan dan detail..."></textarea>
+    <button class="submit" onclick="kirimWA()">Kirim ke WhatsApp</button>
   </div>  <footer>
     Powered by
     <a href="https://www.whatsapp.com" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
@@ -211,6 +224,13 @@ footer a:hover {
 
     function toggleMode() {
       document.body.classList.toggle('dark');
+    }
+
+    function kirimWA() {
+      const type = document.getElementById('bugType').value;
+      const msg = document.getElementById('bugMessage').value.trim();
+      let keluhan = encodeURIComponent(`Assalamualaikum, saya ingin melaporkan:\nJenis Masalah: ${type}\nPesan: ${msg}`);
+      window.open(`https://wa.me/6287860828740?text=${keluhan}`, '_blank');
     }
   </script></body>
 </html>
