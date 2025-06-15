@@ -78,17 +78,6 @@ body.dark .section {
   background: #1f2937;
 }
 
-input, select, textarea {
-  width: 100%;
-  margin: 8px 0;
-  padding: 10px;
-  font-size: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: inherit;
-  color: inherit;
-}
-
 button.submit {
   background-color: var(--primary);
   color: white;
@@ -191,11 +180,13 @@ footer a:hover {
         <i class="fa-solid fa-circle-half-stroke"></i>
       </div>
     </div>
-  </div>  <div id="qr-section" class="section">
-    <h2>Pembayaran QR DANA</h2>
-    <input type="text" placeholder="Nama Anda" />
-    <input type="number" placeholder="Nominal (Rp)" />
-    <button class="submit">Generate QR</button>
+  </div>  <div id="qr-section" class="section" style="text-align: center">
+    <h2>Scan QR Pembayaran DANA</h2>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://link.dana.id/qr/6283139731725" alt="QR DANA">
+    <p><strong>Nomor DANA:</strong><br>6283139731725</p>
+    <a href="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://link.dana.id/qr/6283139731725" download>
+      <button class="submit"><i class="fa-solid fa-download"></i> Download QR</button>
+    </a>
   </div>  <div id="report-section" class="section">
     <h2>Lapor Bug / Error</h2>
     <select>
