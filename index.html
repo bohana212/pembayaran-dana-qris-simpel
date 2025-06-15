@@ -1,138 +1,225 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>QR Pembayaran DANA</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hann Store Digital Web</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    :root {
+      --bg-light: #f7f9fc;
+      --bg-dark: #111827;
+      --text-light: #111;
+      --text-dark: #fff;
+      --primary: #007aff;
+      --success: #22c55e;
+      --error: #ef4444;
+    }* {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
 
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(-45deg, #007aff, #6c63ff, #00c6ff, #007aff);
-      background-size: 300% 300%;
-      animation: gradientMove 25s ease infinite;
-    }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
 
-    @keyframes gradientMove {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
+body.dark {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
 
-    .container {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      padding: 30px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      max-width: 360px;
-      width: 90%;
-      animation: fadeIn 1.2s ease-out;
-    }
+.navbar {
+  background: var(--primary);
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
+.menu {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
 
-    h1 {
-      color: #fff;
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
+.menu button {
+  background: white;
+  color: var(--primary);
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+}
 
-    p {
-      font-size: 14px;
-      color: #eee;
-      margin-bottom: 20px;
-    }
+body.dark .menu button {
+  background: #1f2937;
+  color: white;
+}
 
-    #qr {
-      width: 230px;
-      height: 230px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      background: white;
-      padding: 10px;
-    }
+.mode-toggle {
+  font-size: 20px;
+  cursor: pointer;
+}
 
-    button, a.btn {
-      display: inline-block;
-      margin: 6px 4px;
-      padding: 10px 16px;
-      font-size: 14px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      background-color: #fff;
-      color: #007aff;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.2s ease-in-out;
-    }
+.section {
+  max-width: 480px;
+  margin: 30px auto;
+  background: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
 
-    button:hover, a.btn:hover {
-      background-color: #007aff;
-      color: white;
-    }
+body.dark .section {
+  background: #1f2937;
+}
 
-    .report {
-      margin-top: 10px;
-    }
+input, select, textarea {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: inherit;
+  color: inherit;
+}
+
+button.submit {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.popup {
+  display: none;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.popup.success {
+  background-color: var(--success);
+  color: white;
+}
+
+.popup.error {
+  background-color: var(--error);
+  color: white;
+}
+
+#welcome {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #000;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.typewriter {
+  font-size: 1.3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 33ch;
+  animation: typing 4s steps(33);
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 33ch }
+}
+
+.enter-btn {
+  display: none;
+  margin-top: 20px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 14px;
+  color: gray;
+}
+
+footer a {
+  color: #007aff;
+  text-decoration: none;
+  margin: 0 8px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Bayar via DANA</h1>
-    <p>Nomor: <strong>6283139731725</strong></p>
-    <canvas id="qr"></canvas>
-    <br />
-    <button onclick="downloadQR()">Download QR</button>
-    <a href="dana://pay?phone=6283139731725" class="btn">Buka Aplikasi</a>
-    
-    <div class="report">
-      <h1 style="font-size:18px; margin-top: 20px; color:#fff;">Lapor Masalah</h1>
-      <button onclick="laporBug()">Lapor Bug</button>
-      <button onclick="laporError()">Lapor Error</button>
+  <div id="welcome">
+    <div class="typewriter" id="typeText">Heyy Bro Welcome To Payment Hann Store</div>
+    <button class="enter-btn" id="enterBtn" onclick="document.getElementById('welcome').style.display='none'">Masuk</button>
+  </div>  <div class="navbar">
+    <div><strong>Hann Store</strong></div>
+    <div class="menu">
+      <button onclick="document.getElementById('qr-section').scrollIntoView({behavior:'smooth'})">
+        <i class="fa-solid fa-qrcode"></i> QR Payment
+      </button>
+      <button onclick="document.getElementById('report-section').scrollIntoView({behavior:'smooth'})">
+        <i class="fa-solid fa-bug"></i> Report Bug
+      </button>
+      <div class="mode-toggle" onclick="toggleMode()">
+        <i class="fa-solid fa-circle-half-stroke"></i>
+      </div>
     </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
-  <script>
-    const qr = new QRious({
-      element: document.getElementById('qr'),
-      value: 'dana://pay?phone=6283139731725',
-      size: 230,
-      level: 'H'
+  </div>  <div id="qr-section" class="section">
+    <h2>Pembayaran QR DANA</h2>
+    <input type="text" placeholder="Nama Anda" />
+    <input type="number" placeholder="Nominal (Rp)" />
+    <button class="submit">Generate QR</button>
+  </div>  <div id="report-section" class="section">
+    <h2>Lapor Bug / Error</h2>
+    <select>
+      <option value="bug">Bug di tampilan</option>
+      <option value="error">Gagal saat bayar</option>
+      <option value="lainnya">Lainnya</option>
+    </select>
+    <textarea placeholder="Tulis pesan atau keluhan..."></textarea>
+    <button class="submit" onclick="window.open('https://wa.me/6287860828740?text=Assalamualaikum%20saya%20mau%20melaporkan%20masalah%20di%20website%20Hann%20Store','_blank')">Kirim ke WhatsApp</button>
+  </div>  <footer>
+    Powered by
+    <a href="https://www.whatsapp.com" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+    <a href="https://vercel.com" target="_blank"><i class="fa-brands fa-vercel"></i> Vercel</a>
+    and Team Scripter
+  </footer>  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('enterBtn').style.display = 'block';
+      }, 5000);
     });
 
-    function downloadQR() {
-      const link = document.createElement('a');
-      link.href = qr.toDataURL('image/png');
-      link.download = 'qr_dana_6283139731725.png';
-      link.click();
+    function toggleMode() {
+      document.body.classList.toggle('dark');
     }
-
-    function laporBug() {
-      const pesan = encodeURIComponent("Assalamualaikum kak, saya ingin melaporkan adanya *bug* pada tampilan web QR. Mohon bantuannya ya.");
-      window.open(`https://wa.me/6287860828740?text=${pesan}`, '_blank');
-    }
-
-    function laporError() {
-      const pesan = encodeURIComponent("Assalamualaikum, saya menemukan *error* saat menggunakan halaman ini. Mohon diperiksa dan dibantu. Terima kasih 🙏");
-      window.open(`https://wa.me/6287860828740?text=${pesan}`, '_blank');
-    }
-  </script>
-</body>
+  </script></body>
 </html>
